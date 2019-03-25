@@ -302,7 +302,7 @@ export default class Home extends Vue {
     this.timeCounter = Date();
     const petionInfo = "https://petition.parliament.uk/petitions/"+ this.petitionId + ".json";
     const response = await request.get(petionInfo);
-    console.log("DATA",response);
+    //console.log("DATA",response);
     this.petionData = response.body.data.attributes;
     this.rows = response.body.data.attributes.signatures_by_constituency;
     this.countryCountRows = response.body.data.attributes.signatures_by_country;
