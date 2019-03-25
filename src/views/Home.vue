@@ -12,7 +12,7 @@
           <h4>{{item.attributes.action}}</h4>
           <p>{{item.attributes.background}}</p>
           <p style="color:green;font-weight:bold;">{{item.attributes.signature_count}}</p>
-          <p>{{item.links.self}}</p>
+          
           <router-link
             :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
           >Petition Real Time Stats</router-link>
