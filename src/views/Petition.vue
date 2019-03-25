@@ -3,9 +3,7 @@
       <div class="container--cust">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
-      <div>
-         <vue-goodshare></vue-goodshare>
-      </div>
+  
       </div>
       </div>
     <div class="container">
@@ -126,7 +124,9 @@
       ></vue-good-table>
     </div>
     <div class="container--full">
-     
+         <div style="text-align:center;padding-top:32px;">
+         <vue-goodshare></vue-goodshare>
+      </div>
     </div>
   </div>
 </template>
