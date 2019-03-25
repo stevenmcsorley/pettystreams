@@ -21,7 +21,7 @@
                 <router-link
                   :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
                 >
-                  <v-btn color="info">Petition Real Time Stats</v-btn>
+                  <v-btn color="info" class="pa-1">Petition Real Time Stats</v-btn>
                 </router-link>
               </v-list-tile-content>
 
