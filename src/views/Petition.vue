@@ -268,9 +268,9 @@ export default class Home extends Vue {
 
   @Watch("petsUp.signature_count")
   onChildChanged(val: number, oldVal: number) {
-    console.log("Changed");
+    // console.log("Changed");
     this.isActive = true;
-    console.log(val - oldVal);
+    //console.log(val - oldVal);
     this.newPetsAdded = val - oldVal;
     // this.newPetsCount = this.petsUp.signature_count + this.newPetsAdded
 
@@ -279,7 +279,7 @@ export default class Home extends Vue {
     this.testStat.push(this.newPetsAdded);
     this.testStat = this.testStat.filter((z: any) => z > 0);
 
-    console.log(this.testStat);
+    //console.log(this.testStat);
 
     if (this.stats.length > 30) {
       //this.stats = [{count:0, time:0}]
@@ -321,7 +321,7 @@ export default class Home extends Vue {
       let then = moment(this.stats[0].time, "dddd, MMMM Do YYYY, h:mm:ss a");
       //const timediffNow = moment.utc(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss")).humanize();
       const timediffNow = moment.duration(now.diff(then)).humanize();
-      console.log("DIFF", timediffNow);
+      //console.log("DIFF", timediffNow);
       return timediffNow;
     }
 
