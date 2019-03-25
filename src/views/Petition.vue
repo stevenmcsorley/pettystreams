@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-      <div class="container--full">
+      <div class="container--cust">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
+      <div>
+         <vue-goodshare></vue-goodshare>
+      </div>
       </div>
       </div>
     <div class="container">
@@ -121,6 +124,9 @@
   }"
       ></vue-good-table>
     </div>
+    <div class="container--full">
+     
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -197,6 +203,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
 import Sparkline from "vue-sparklines";
 import { setTimeout } from "timers";
+import VueGoodshare from "vue-goodshare";
 const moment = require("moment");
 Vue.use(require("vue-moment"), {
   moment
@@ -206,7 +213,8 @@ Vue.component("tween-num", require("vue-tween-number"));
 
 @Component({
   components: {
-    Sparkline
+    Sparkline,
+    VueGoodshare
   }
 })
 export default class Home extends Vue {
