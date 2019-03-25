@@ -47,6 +47,7 @@
             </div>
         </div>
         <h4>Creator: {{this.petsUp.creator_name }}</h4>
+        <p><a :href="this.urlPart + this.petitionId" target="_blank">Origin Petition URL </a></p>
       </div>
 
       <div class="card" style="text-align:center;">
@@ -219,6 +220,7 @@ Vue.component("tween-num", require("vue-tween-number"));
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
+  private urlPart: string = "https://petition.parliament.uk/petitions/"
   private petitionId:any = ''
   private timeCounter: string = Date();
   private stats: Array<any> = [{ count: 0, time: 0 }];
