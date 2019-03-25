@@ -24,7 +24,7 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: '/petition/:stream',
+      path: '/petition-real-time-stats/:stream',
       name: 'petition',
       component: Petition
   },
