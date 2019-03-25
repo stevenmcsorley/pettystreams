@@ -274,8 +274,6 @@ p {
   -webkit-animation-delay: 0.6s;
 }
 </style>
-
-
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
