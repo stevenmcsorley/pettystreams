@@ -1,6 +1,7 @@
 <template>
   <v-app id="app">
-  
+ <v-content>
+    <v-container fluid>
     <div id="nav">
  
       <router-link to="/">
@@ -14,7 +15,8 @@
       <!-- <router-link :to="{ name: 'petition', params: { stream: 241584 } }">Petition</router-link> -->
     </div>
     <router-view />
-
+    </v-container>
+ </v-content>
   </v-app>
 </template>
 
