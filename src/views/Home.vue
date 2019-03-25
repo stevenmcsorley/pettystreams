@@ -1,24 +1,25 @@
 <template>
   <div class="home">
-  <div class="loader" v-if="isLoading">
-    <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
-    <span class="ripple pinkBg"></span>
-<span class="ripple pinkBg"></span>
-<span class="ripple pinkBg"></span>
-  </div>
-            <ul
-        style="justify-content: center;align-items: center;width:100%">
-          <li v-for="(item, index) in this.petionData" :key="index">
-             <div class="card">
-            <h4>{{item.attributes.action}}</h4>
-            <p>{{item.attributes.background}}</p>
-            <p style="color:green;font-weight:bold;">{{item.attributes.signature_count}}</p>
-            <p>{{item.links.self}}</p>
-            <router-link :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }">Petition Real Time Stats</router-link>
-            </div>
-          </li>
-        </ul>
-      <!-- <div class="container--full">
+    <div class="loader" v-if="isLoading">
+      <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+    </div>
+    <ul style="justify-content: center;align-items: center;width:100%">
+      <li v-for="(item, index) in this.petionData" :key="index">
+        <div class="card">
+          <h4>{{item.attributes.action}}</h4>
+          <p>{{item.attributes.background}}</p>
+          <p style="color:green;font-weight:bold;">{{item.attributes.signature_count}}</p>
+          <p>{{item.links.self}}</p>
+          <router-link
+            :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
+          >Petition Real Time Stats</router-link>
+        </div>
+      </li>
+    </ul>
+    <!-- <div class="container--full">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
       </div>
@@ -138,7 +139,7 @@
     allLabel: 'All',
   }"
       ></vue-good-table>
-    </div> -->
+    </div>-->
   </div>
 </template>
 <style lang="scss" scoped>
@@ -148,9 +149,9 @@
   border: 0;
   list-style: none;
 }
-p{
-  text-align:let;
-  font-size:14px;
+p {
+  text-align: let;
+  font-size: 14px;
 }
 .home {
   padding: 0px 30px 20px;
@@ -161,16 +162,15 @@ p{
   grid-template-columns: 1fr 1fr;
   column-gap: 10px;
   row-gap: 1em;
- 
 
-  &--full{
-      display: grid;
-  grid-template-columns: 1fr;
+  &--full {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
-  &--3{
-          display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  &--3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 .active {
@@ -180,11 +180,11 @@ p{
 
 .livecount {
   color: coral;
-  font-size:32px;
+  font-size: 32px;
   text-align: center;
-  .label{
-font-size:12px;
-color:black
+  .label {
+    font-size: 12px;
+    color: black;
   }
 }
 .alert {
@@ -197,7 +197,7 @@ color:black
   border-radius: 3px;
   border: 1px solid silver;
   box-shadow: 2px 3px 3px -4px dimgrey;
-  margin:8px 0px;
+  margin: 8px 0px;
 }
 
 .carditle {
@@ -205,75 +205,74 @@ color:black
   padding: 8px;
 }
 
-.possible--bot{
-  background:lighten(dodgerblue, 20%);
+.possible--bot {
+  background: lighten(dodgerblue, 20%);
 }
 .pinkBg {
-    background-color: #02ADB5!important;
-    background-image: linear-gradient(90deg, #02ADB5, rgb(46, 217, 226));
+  background-color: #02adb5 !important;
+  background-image: linear-gradient(90deg, #02adb5, rgb(46, 217, 226));
 }
-.intro-banner-vdo-play-btn{
-    height:60px;
-    width:60px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    text-align:center;
-    margin:-30px 0 0 -30px;
-    border-radius:100px;
-    z-index:1
+.intro-banner-vdo-play-btn {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  margin: -30px 0 0 -30px;
+  border-radius: 100px;
+  z-index: 1;
 }
-.loader i{
-    line-height:56px;
-    font-size:30px
+.loader i {
+  line-height: 56px;
+  font-size: 30px;
 }
-.loader .ripple{
-    position:absolute;
-    width:160px;
-    height:160px;
-    z-index:-1;
-    left:50%;
-    top:50%;
-    opacity:0;
-    margin:-80px 0 0 -80px;
-    border-radius:100px;
-    -webkit-animation:ripple 1.8s infinite;
-    animation:ripple 1.8s infinite
-}
-
-@-webkit-keyframes ripple{
-    0%{
-        opacity:1;
-        -webkit-transform:scale(0);
-        transform:scale(0)
-    }
-    100%{
-        opacity:0;
-        -webkit-transform:scale(1);
-        transform:scale(1)
-    }
-}
-@keyframes ripple{
-    0%{
-        opacity:1;
-        -webkit-transform:scale(0);
-        transform:scale(0)
-    }
-    100%{
-        opacity:0;
-        -webkit-transform:scale(1);
-        transform:scale(1)
-    }
-}
-.loader .ripple:nth-child(2){
-    animation-delay:.3s;
-    -webkit-animation-delay:.3s
-}
-.loader .ripple:nth-child(3){
-    animation-delay:.6s;
-    -webkit-animation-delay:.6s
+.loader .ripple {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  margin: -80px 0 0 -80px;
+  border-radius: 100px;
+  -webkit-animation: ripple 1.8s infinite;
+  animation: ripple 1.8s infinite;
 }
 
+@-webkit-keyframes ripple {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.loader .ripple:nth-child(2) {
+  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+}
+.loader .ripple:nth-child(3) {
+  animation-delay: 0.6s;
+  -webkit-animation-delay: 0.6s;
+}
 </style>
 
 
@@ -296,7 +295,7 @@ Vue.component("tween-num", require("vue-tween-number"));
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
-  private isLoading:boolean = false
+  private isLoading: boolean = false;
   private timeCounter: string = Date();
   private stats: Array<any> = [{ count: 0, time: 0 }];
   private newPetsAdded: number = 0;
@@ -371,19 +370,20 @@ export default class Home extends Vue {
     // }, 5000);
   }
   private async getEarthQuakesPastHourAboveFourMag() {
-    this.isLoading = true
+    this.isLoading = true;
     this.timeCounter = Date();
-    const petionInfo = "https://petition.parliament.uk/petitions.json?state=open";
+    const petionInfo =
+      "https://petition.parliament.uk/petitions.json?state=open";
     const response = await request.get(petionInfo);
-    
-    this.petionData = response.body.data
+
+    this.petionData = response.body.data;
     // this.rows = response.body.data.attributes.signatures_by_constituency;
     // this.countryCountRows = response.body.data.attributes.signatures_by_country;
     // console.table(this.petionData.signatures_by_constituency, ['mp','name'])
     //return this.rows
     this.isActive = false;
-    this.isLoading = false
-    console.log("DATA",this.petionData);
+    this.isLoading = false;
+    console.log("DATA", this.petionData);
   }
 
   private get petsUp() {
@@ -405,12 +405,11 @@ export default class Home extends Vue {
     // outputs: "00:39:30"
   }
 
-  private getStream(url:string){
-    const spliter = url.split( '/')
-    const removeDot = spliter[4].split('.')
+  private getStream(url: string) {
+    const spliter = url.split("/");
+    const removeDot = spliter[4].split(".");
     console.log(spliter[4]);
-    return removeDot[0]
-
+    return removeDot[0];
   }
 }
 </script>
