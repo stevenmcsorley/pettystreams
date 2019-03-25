@@ -6,19 +6,36 @@
       <span class="ripple pinkBg"></span>
       <span class="ripple pinkBg"></span>
     </div>
-    <ul style="justify-content: center;align-items: center;width:100%">
-      <li v-for="(item, index) in this.petionData" :key="index">
-        <div class="card">
-          <h4>{{item.attributes.action}}</h4>
-          <p>{{item.attributes.background}}</p>
-          <p style="color:green;font-weight:bold;">{{item.attributes.signature_count}}</p>
-          
-          <router-link
-            :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
-          >Petition Real Time Stats</router-link>
-        </div>
-      </li>
-    </ul>
+ 
+        <v-card v-for="(item, index) in this.petionData" :key="index" class="ma-3">
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">{{item.attributes.action}}</h3>
+              <div>{{item.attributes.background}}</div>
+            </div>
+          </v-card-title>
+
+          <v-card-actions>
+            <v-list-tile class="grow">
+              <v-list-tile-content>
+                <router-link
+                  :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
+                >
+                  <v-btn color="info">Petition Real Time Stats</v-btn>
+                </router-link>
+              </v-list-tile-content>
+
+              <v-layout align-center justify-end>
+                <v-icon color="teal darken-2">mdi-marker</v-icon> 
+                <h3 class="headline mr-2 ml-2"> {{item.attributes.signature_count.toLocaleString()}}</h3>
+              </v-layout>
+            </v-list-tile>
+          </v-card-actions>
+
+          <p style="color:green;font-weight:bold;"></p>
+        </v-card>
+
+
     <!-- <div class="container--full">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
@@ -371,7 +388,7 @@ export default class Home extends Vue {
     this.isLoading = true;
     this.timeCounter = Date();
     const petionInfo =
-      "https://petition.parliament.uk/petitions.json?state=open";
+      "https://petition.parliament.uk/petitions.json?state=all";
     const response = await request.get(petionInfo);
 
     this.petionData = response.body.data;

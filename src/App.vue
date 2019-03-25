@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-
+  <v-app id="app">
+  
     <div id="nav">
  
       <router-link to="/">
@@ -14,7 +14,8 @@
       <!-- <router-link :to="{ name: 'petition', params: { stream: 241584 } }">Petition</router-link> -->
     </div>
     <router-view />
-  </div>
+
+  </v-app>
 </template>
 
 <style lang="scss">
@@ -29,9 +30,13 @@
   a {
     font-weight: bold;
     color: #2c3e50;
+   
     &.router-link-exact-active {
       color: #42b983;
     }
   }
+}
+a {
+   text-decoration: none!important;
 }
 </style>

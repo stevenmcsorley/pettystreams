@@ -1,14 +1,14 @@
 <template>
   <div class="home">
-      <div class="container--cust">
+      <div class="wrap--cust">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
   
       </div>
       </div>
-    <div class="container">
+    <div class="wrap">
       <div class="card">
-          <div class="container" style=" padding-bottom:16px;">
+          <div class="wrap" style=" padding-bottom:16px;">
        <span>Scheduled Debate Date:{{this.petsUp.scheduled_debate_date}}</span>
        <span class="active" style="text-align:right">Status:{{this.petsUp.state}}</span>
           </div>
@@ -30,7 +30,7 @@
           <span>Just added!</span>
         </p>
         <p style=" padding:16px 0px;">Title: {{this.petsUp.background}}</p>
-         <div class="container--full" style=" padding-bottom:16px;">
+         <div class="wrap--full" style=" padding-bottom:16px;">
            <div>
         <h4>Created on: </h4>
         <p>{{this.petsUp.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</p>
@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="wrap">
       <vue-good-table
         :columns="columnsMP"
         :rows="rows"
@@ -123,7 +123,7 @@
   }"
       ></vue-good-table>
     </div>
-    <div class="container--full">
+    <div class="wrap--full">
          <div style="text-align:center;padding-top:32px;">
          <vue-goodshare></vue-goodshare>
       </div>
@@ -145,7 +145,7 @@ p{
  padding: 0px 30px 20px;
 }
 
-.container {
+.wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 10px;
@@ -165,7 +165,7 @@ p{
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-.container {
+.wrap {
   display: grid;
   grid-template-columns: 1fr;
   column-gap: 10px;
