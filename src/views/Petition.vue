@@ -197,7 +197,6 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
 import Sparkline from "vue-sparklines";
 import { setTimeout } from "timers";
-import VueMixinTween from "vue-mixin-tween";
 const moment = require("moment");
 Vue.use(require("vue-moment"), {
   moment
