@@ -1,8 +1,17 @@
 <template>
   <div id="app">
+
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+ 
+      <router-link to="/">
+             <div style="text-align:center">
+  <img src="./assets/logo_transparent.png" width="200px"/>
+  </div>
+      
+      </router-link>
+      <!--  |
+      <router-link to="/about">About</router-link> -->
+      <!-- <router-link :to="{ name: 'petition', params: { stream: 241584 } }">Petition</router-link> -->
     </div>
     <router-view />
   </div>
@@ -13,11 +22,10 @@
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 #nav {
-  padding: 30px;
+  padding: 0px 16px;
   a {
     font-weight: bold;
     color: #2c3e50;
