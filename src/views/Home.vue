@@ -7,7 +7,7 @@
       <span class="ripple pinkBg"></span>
     </div>
  
-        <v-card v-for="(item, index) in this.petionData" :key="index" class="ma-3">
+        <v-card v-for="(item, index) in this.petionData" :key="index" class="pa-2 ma-3">
           <v-card-title primary-title>
             <div>
               <h3 class="headline mb-0">{{item.attributes.action}}</h3>
