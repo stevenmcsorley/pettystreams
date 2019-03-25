@@ -162,6 +162,27 @@ p{
   grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 10px;
+  row-gap: 1em;
+ 
+
+  &--full{
+      display: grid;
+  grid-template-columns: 1fr;
+  }
+
+  &--3{
+          display: grid;
+  grid-template-columns: 1fr;
+  }
+}
+}
 .active {
   color: green !important;
   font-weight: bold;
