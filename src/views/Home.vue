@@ -240,6 +240,10 @@ p {
   border-radius: 100px;
   z-index: 1;
 }
+.loader{
+  position: relative;
+  z-index: 9999;
+}
 .loader i {
   line-height: 56px;
   font-size: 30px;
