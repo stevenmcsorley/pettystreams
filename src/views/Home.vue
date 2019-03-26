@@ -6,157 +6,37 @@
       <span class="ripple pinkBg"></span>
       <span class="ripple pinkBg"></span>
     </div>
- 
-        <v-card v-for="(item, index) in this.petionData" :key="index" class="pa-2 ma-3">
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">{{item.attributes.action}}</h3>
-              <div>{{item.attributes.background}}</div>
+
+    <div class="dev-u-padding-default--x2">
+      <div class="dev-grid-wrapper__article--column--1 dev-u-padding-default">
+        <article>
+          <div
+            v-for="(item, index) in this.petionData"
+            :key="index"
+            class="dev-card-base dev-u-padding-default"
+          >
+            <div class="dev-card-base__header dev-u-padding-default">
+              <h4>{{item.attributes.action}}</h4>
             </div>
-          </v-card-title>
-
-          <v-card-actions>
-            <v-list-tile class="grow">
-              <v-list-tile-content>
-                <router-link
-                  :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
-                >
-                  <v-btn color="info" class="pa-1">Petition Real Time Stats</v-btn>
-                </router-link>
-              </v-list-tile-content>
-
-              <v-layout align-center justify-end>
-                <v-icon color="teal darken-2">mdi-marker</v-icon> 
-                <h3 class="headline mr-2 ml-2"> {{item.attributes.signature_count.toLocaleString()}}</h3>
-              </v-layout>
-            </v-list-tile>
-          </v-card-actions>
-
-          <p style="color:green;font-weight:bold;"></p>
-        </v-card>
-
-
-    <!-- <div class="container--full">
-      <div class="card">
- <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
-      </div>
-      </div>
-    <div class="container">
-      <div class="card">
-          <div class="container" style=" padding-bottom:16px;">
-       <span>Scheduled Debate Date:{{this.petsUp.scheduled_debate_date}}</span>
-       <span class="active" style="text-align:right">Status:{{this.petsUp.state}}</span>
-          </div>
-       
-        <h1 :class="{active:isActive}" class="livecount">
-          <tween-num
-            :value="this.petsUp.signature_count"
-            :initial="0"
-            :duration="500"
-            easing="easeOutQuart"
-            :formatter="val => val.toLocaleString('en', {minimumFractionDigits: 0, maximumFractionDigits: 0})"
-          ></tween-num>
-          <span class="label"> signatures</span>
-        </h1>
-        <p style="color:deeppink" v-if="this.newPetsAdded < 0">Awaiting</p>
-
-        <p style="color:deeppink;text-align:center;font-size:16px;"  v-else-if="this.newPetsAdded > 0">
-          {{this.newPetsAdded}}
-          <span>Just added!</span>
-        </p>
-        <p style=" padding:16px 0px;">Title: {{this.petsUp.background}}</p>
-         <div class="container--full" style=" padding-bottom:16px;">
-           <div>
-        <h4>Created on: </h4>
-        <p>{{this.petsUp.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</p>
-        </div>
-          <div>
-        <h4>Debate threshold reached: </h4>
-        <p>{{this.petsUp.debate_threshold_reached_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</p>
-          </div>
-            <div>
-        <h4>Response threshold reached </h4>
-        <p>{{this.petsUp.response_threshold_reached_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
+            <div class="dev-card-base__body dev-u-padding-default">{{item.attributes.background}}</div>
+            <div class="dev-card-base__footer dev-u-padding-default">
+              <div class="dev-grid-wrapper__article--column--2 dev-flex">
+                <article>
+                  <router-link
+                    :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
+                  >
+                    <button class="dev-btn">Petition Real Time Stats</button>
+                  </router-link>
+                </article>
+                <article>
+                  <h3 class="counter">{{item.attributes.signature_count.toLocaleString()}}</h3>
+                </article>
+              </div>
             </div>
-        </div>
-        <h4>Creator: {{this.petsUp.creator_name }}</h4>
-      </div>
-
-      <div class="card" style="text-align:center;">
-        <h4>Signature Trends in the Last {{timediff}}</h4>
-        <sparkline :indicatorStyles="spIndicatorStyles1">
-          <sparklineLine :data="testStat" :limit="30" :styles="spLineStyles1"/>
-        </sparkline>
-        <div style="height:300px; border:1px solid silver;overflow:auto;display:flex;align-items: center;">
-          <div v-if="this.stats.length === 0"
-           style="display:flex;font-size:22px;justify-content: center;align-items: center;width:100%"
-           > Awaiting Trend Analysis</div>
-        <ul
-        v-else-if="this.stats.length > 0"
-        style="justify-content: center;align-items: center;width:100%">
-          <li :class="{'possible--bot': item.count > 1000}" v-for="(item, index) in this.stats" :key="index">
-            Another
-            <span class="active">{{item.count}}</span> added @
-            <span class="alert">{{ item.time | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</span>
-          </li>
-        </ul>
-        </div>
+          </div>
+        </article>
       </div>
     </div>
-    <div class="container">
-      <vue-good-table
-        :columns="columnsMP"
-        :rows="rows"
-        :sort-options="{
-    enabled: true,
-    initialSortBy: {field: 'signature_count', type: 'desc'}
-  }"
-        :search-options="{
-    enabled: true
-    }"
-        :pagination-options="{
-    enabled: true,
-    mode: 'records',
-    perPage: 5,
-    position: 'top',
-    perPageDropdown: [5, 10, 20],
-    dropdownAllowAll: false,
-    setCurrentPage: 1,
-    nextLabel: 'next',
-    prevLabel: 'prev',
-    rowsPerPageLabel: 'Rows per page',
-    ofLabel: 'of',
-    pageLabel: 'page', // for 'pages' mode
-    allLabel: 'All',
-  }"
-      ></vue-good-table>
-      <vue-good-table
-        :columns="columnsSIG"
-        :rows="countryCountRows"
-        :sort-options="{
-    enabled: true,
-    initialSortBy: {field: 'signature_count', type: 'desc'}
-  }"
-        :search-options="{
-    enabled: true
-    }"
-        :pagination-options="{
-    enabled: true,
-    mode: 'records',
-    perPage: 5,
-    position: 'top',
-    perPageDropdown: [5, 10, 20],
-    dropdownAllowAll: false,
-    setCurrentPage: 1,
-    nextLabel: 'next',
-    prevLabel: 'prev',
-    rowsPerPageLabel: 'Rows per page',
-    ofLabel: 'of',
-    pageLabel: 'page', // for 'pages' mode
-    allLabel: 'All',
-  }"
-      ></vue-good-table>
-    </div>-->
   </div>
 </template>
 <style lang="scss" scoped>
@@ -240,7 +120,7 @@ p {
   border-radius: 100px;
   z-index: 1;
 }
-.loader{
+.loader {
   position: relative;
   z-index: 9999;
 }
@@ -293,6 +173,11 @@ p {
 .loader .ripple:nth-child(3) {
   animation-delay: 0.6s;
   -webkit-animation-delay: 0.6s;
+}
+.counter {
+  text-align: right;
+  margin: 26px;
+  font-size: 26px;
 }
 </style>
 <script lang="ts">
