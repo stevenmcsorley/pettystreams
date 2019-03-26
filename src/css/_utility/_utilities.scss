@@ -248,3 +248,9 @@
 .dev-full-width{
   width:100%;
 }
+
+.dev-flex-column{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

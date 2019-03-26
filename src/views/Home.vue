@@ -8,27 +8,28 @@
     </div>
 
     <div class="dev-u-padding-default--x2">
-      <div class="dev-grid-wrapper__article--column--1 dev-u-padding-default">
-        <article>
+      <div class="dev-grid-wrapper__article--column--2 dev-u-padding-default">
+        <article v-for="(item, index) in this.petionData"
+            :key="index">
           <div
-            v-for="(item, index) in this.petionData"
-            :key="index"
-            class="dev-card-base dev-u-padding-default"
+            class="dev-card-base dev-u-padding-default dev-flex-column"
           >
             <div class="dev-card-base__header dev-u-padding-default">
               <h4>{{item.attributes.action}}</h4>
             </div>
-            <div class="dev-card-base__body dev-u-padding-default">{{item.attributes.background}}</div>
+            <div class="dev-card-base__body dev-u-padding-default" style="height:100%">
+              {{item.attributes.background}}</div>
             <div class="dev-card-base__footer dev-u-padding-default">
               <div class="dev-grid-wrapper__article--column--2 dev-flex">
                 <article>
                   <router-link
+                    class="dev-flex"
                     :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
                   >
-                    <button class="dev-btn">Petition Real Time Stats</button>
+                    <button class="dev-btn" style="align-items: center;">Petition Real Time Stats</button>
                   </router-link>
                 </article>
-                <article>
+                <article style="align-items: center;">
                   <h3 class="counter">{{item.attributes.signature_count.toLocaleString()}}</h3>
                 </article>
               </div>
@@ -51,7 +52,7 @@ p {
   font-size: 14px;
 }
 .home {
-  padding: 0px 30px 20px;
+  padding: 0px 0px 20px;
 }
 
 .container {
@@ -176,9 +177,10 @@ p {
   -webkit-animation-delay: 0.6s;
 }
 .counter {
-  text-align: right;
-  margin: 26px;
-  font-size: 26px;
+    text-align: center;
+    margin: 32px 10px;
+    font-size: 26px;
+    color: forestgreen;
 }
 </style>
 <script lang="ts">
