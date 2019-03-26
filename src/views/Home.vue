@@ -123,6 +123,7 @@ p {
 .loader {
   position: relative;
   z-index: 9999;
+  top:-145px;
 }
 .loader i {
   line-height: 56px;
