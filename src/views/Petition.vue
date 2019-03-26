@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+        <div class="loader" v-if="isLoading">
+      <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+      <span class="ripple pinkBg"></span>
+    </div>
       <div class="wrap--cust">
       <div class="card">
  <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
@@ -217,6 +223,76 @@ color:black
 .possible--bot{
   background:lighten(dodgerblue, 20%);
 }
+.pinkBg {
+  background-color: #02adb5 !important;
+  background-image: linear-gradient(90deg, #02adb5, rgb(46, 217, 226));
+}
+.intro-banner-vdo-play-btn {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  margin: -30px 0 0 -30px;
+  border-radius: 100px;
+  z-index: 1;
+}
+.loader {
+  position: relative;
+  z-index: 9999;
+  top:-145px;
+}
+.loader i {
+  line-height: 56px;
+  font-size: 30px;
+}
+.loader .ripple {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  margin: -80px 0 0 -80px;
+  border-radius: 100px;
+  -webkit-animation: ripple 1.8s infinite;
+  animation: ripple 1.8s infinite;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.loader .ripple:nth-child(2) {
+  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+}
+.loader .ripple:nth-child(3) {
+  animation-delay: 0.6s;
+  -webkit-animation-delay: 0.6s;
+}
 </style>
 
 
@@ -241,6 +317,7 @@ Vue.component("tween-num", require("vue-tween-number"));
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
+  private isLoading: boolean = false
   private urlPart: string = "https://petition.parliament.uk/petitions/"
   private petitionId:any = ''
   private timeCounter: string = Date();
@@ -289,6 +366,7 @@ export default class Home extends Vue {
 
   @Watch("petsUp.signature_count")
   onChildChanged(val: number, oldVal: number) {
+    this.isLoading = false
     // console.log("Changed");
     this.isActive = true;
     //console.log(val - oldVal);
@@ -320,6 +398,7 @@ export default class Home extends Vue {
     }, 5000);
   }
   private async getEarthQuakesPastHourAboveFourMag() {
+    this.isLoading = true
     this.timeCounter = Date();
     const petionInfo = "https://petition.parliament.uk/petitions/"+ this.petitionId + ".json";
     const response = await request.get(petionInfo);
