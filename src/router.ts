@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Petition from './views/Petition.vue'
 
+
 Vue.use(Router);
 
 export default new Router({

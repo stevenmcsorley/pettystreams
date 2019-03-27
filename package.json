@@ -19,7 +19,7 @@
     "vue-material-design-icons": "^3.1.0",
     "vue-moment": "^4.0.0",
     "vue-property-decorator": "^7.0.0",
-    "vue-router": "^3.0.1",
+    "vue-router": "^3.0.2",
     "vue-tween-number": "^0.2.0",
     "vuetify": "^1.5.7",
     "vuex": "^3.0.1"
@@ -30,7 +30,7 @@
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-plugin-typescript": "^3.5.0",
-    "@vue/cli-plugin-unit-jest": "^3.5.0",
+    "@vue/cli-plugin-unit-jest": "^3.5.3",
     "@vue/cli-service": "^3.5.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
@@ -46,6 +46,7 @@
     "ts-jest": "^23.0.0",
     "typescript": "^3.2.1",
     "vue-sparklines": "^0.1.9",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "vue-ua": "^1.6.0"
   }
 }

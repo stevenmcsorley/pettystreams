@@ -5,3 +5,4 @@ declare module "*.vue" {
 declare module 'vue-sparklines'
 declare module 'vue-good-table'
 declare module 'vue-goodshare'
+declare module 'vue-ua'
