@@ -8,17 +8,29 @@
     </div>
 
     <div class="dev-u-padding-default--x2">
-      <div class="dev-grid-wrapper__article--column--2 dev-u-padding-default">
-        <article v-for="(item, index) in this.petionData"
-            :key="index">
-          <div
-            class="dev-card-base dev-u-padding-default dev-flex-column"
+      <div class="dev-grid-wrapper__article--column--1 dev-u-padding-default">
+        <article>
+          <input
+            type="text"
+            v-model="filterRes"
+            @input.prevent="filterPets"
+            placeholder="Filter Petition by keyword"
+            style="text-align:center"
           >
+        </article>
+      </div>
+
+      <div class="dev-grid-wrapper__article--column--2 dev-u-padding-default">
+        <article v-for="(item, index) in this.filterPets" :key="index">
+          <div class="dev-card-base dev-u-padding-default dev-flex-column">
             <div class="dev-card-base__header dev-u-padding-default">
               <h4>{{item.attributes.action}}</h4>
             </div>
-            <div class="dev-card-base__body dev-u-padding-default" style="height:100%">
-              {{item.attributes.background}}</div>
+            <div
+              class="dev-card-base__body dev-u-padding-default"
+              style="height:100%"
+            ><text-highlight :queries="filterRes">{{item.attributes.background}}</text-highlight>
+            </div>
             <div class="dev-card-base__footer dev-u-padding-default">
               <div class="dev-grid-wrapper__article--column--2 dev-flex">
                 <article>
@@ -124,7 +136,7 @@ p {
 .loader {
   position: relative;
   z-index: 9999;
-  top:-145px;
+  top: -145px;
 }
 .loader i {
   line-height: 56px;
@@ -177,10 +189,10 @@ p {
   -webkit-animation-delay: 0.6s;
 }
 .counter {
-    text-align: center;
-    margin: 32px 10px;
-    font-size: 26px;
-    color: forestgreen;
+  text-align: center;
+  margin: 32px 10px;
+  font-size: 26px;
+  color: forestgreen;
 }
 </style>
 <script lang="ts">
@@ -188,6 +200,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
 import Sparkline from "vue-sparklines";
 import { setTimeout } from "timers";
+import TextHighlight from 'vue-text-highlight';
 const moment = require("moment");
 Vue.use(require("vue-moment"), {
   moment
@@ -197,11 +210,13 @@ Vue.component("tween-num", require("vue-tween-number"));
 
 @Component({
   components: {
-    Sparkline
+    Sparkline,
+    TextHighlight
   }
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
+  private filterRes: string = ''
   private isLoading: boolean = false;
   private timeCounter: string = Date();
   private stats: Array<any> = [{ count: 0, time: 0 }];
@@ -272,6 +287,7 @@ export default class Home extends Vue {
 
   mounted() {
     this.getEarthQuakesPastHourAboveFourMag();
+
     // setInterval(() => {
     //   this.getEarthQuakesPastHourAboveFourMag();
     // }, 5000);
@@ -317,6 +333,17 @@ export default class Home extends Vue {
     const removeDot = spliter[4].split(".");
     //console.log(spliter[4]);
     return removeDot[0];
+  }
+
+  private get filterPets(){
+    	let  posts = this.petionData
+      if (this.filterRes) {
+      	posts = posts.filter((p:any) => {
+        	return p.attributes.background.indexOf(this.filterRes) !== -1
+        })
+      }
+
+   return posts;
   }
 }
 </script>
