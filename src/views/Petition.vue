@@ -1,77 +1,119 @@
 <template>
   <div class="home">
-        <div class="loader" v-if="isLoading">
+    <div class="loader" v-if="isLoading">
       <i class="glyphicon glyphicon-play whiteText" aria-hidden="true"></i>
       <span class="ripple pinkBg"></span>
       <span class="ripple pinkBg"></span>
       <span class="ripple pinkBg"></span>
     </div>
-      <div class="wrap--cust">
+    <div class="wrap--cust">
       <div class="card">
- <h4>{{this.petsUp.action}} Petition Real-time stats</h4>
-  
+        <h4>{{ this.petsUp.action }} Petition Real-time stats</h4>
       </div>
-      </div>
+    </div>
     <div class="wrap">
       <div class="card">
-          <div class="wrap" style=" padding-bottom:16px;">
-       <span>Scheduled Debate Date:{{this.petsUp.scheduled_debate_date}}</span>
-       <span class="active" style="text-align:right">Status:{{this.petsUp.state}}</span>
-          </div>
-       
-        <h1 :class="{active:isActive}" class="livecount">
+        <div class="wrap" style=" padding-bottom:16px;">
+          <span
+            >Scheduled Debate Date:{{ this.petsUp.scheduled_debate_date }}</span
+          >
+          <span class="active" style="text-align:right"
+            >Status:{{ this.petsUp.state }}</span
+          >
+        </div>
+
+        <h1 :class="{ active: isActive }" class="livecount">
           <tween-num
             :value="this.petsUp.signature_count"
             :initial="0"
             :duration="500"
             easing="easeOutQuart"
-            :formatter="val => val.toLocaleString('en', {minimumFractionDigits: 0, maximumFractionDigits: 0})"
+            :formatter="
+              val =>
+                val.toLocaleString('en', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0
+                })
+            "
           ></tween-num>
           <span class="label"> signatures</span>
         </h1>
         <p style="color:deeppink" v-if="this.newPetsAdded < 0">Awaiting</p>
 
-        <p style="color:deeppink;text-align:center;font-size:16px;"  v-else-if="this.newPetsAdded > 0">
-          {{this.newPetsAdded}}
+        <p
+          style="color:deeppink;text-align:center;font-size:16px;"
+          v-else-if="this.newPetsAdded > 0"
+        >
+          {{ this.newPetsAdded }}
           <span>Just added!</span>
         </p>
-        <p style=" padding:16px 0px;">Title: {{this.petsUp.background}}</p>
-         <div class="wrap--full" style=" padding-bottom:16px;">
-           <div>
-        <h4>Created on: </h4>
-        <p>{{this.petsUp.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</p>
-        </div>
+        <p style=" padding:16px 0px;">Title: {{ this.petsUp.background }}</p>
+        <div class="wrap--full" style=" padding-bottom:16px;">
           <div>
-        <h4>Debate threshold reached: </h4>
-        <p>{{this.petsUp.debate_threshold_reached_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</p>
+            <h4>Created on:</h4>
+            <p>
+              {{
+                this.petsUp.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")
+              }}
+            </p>
           </div>
-            <div>
-        <h4>Response threshold reached </h4>
-        <p>{{this.petsUp.response_threshold_reached_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
-            </div>
+          <div>
+            <h4>Debate threshold reached:</h4>
+            <p>
+              {{
+                this.petsUp.debate_threshold_reached_at
+                  | moment("dddd, MMMM Do YYYY, h:mm:ss a")
+              }}
+            </p>
+          </div>
+          <div>
+            <h4>Response threshold reached</h4>
+            <p>
+              {{
+                this.petsUp.response_threshold_reached_at
+                  | moment("dddd, MMMM Do YYYY, h:mm:ss a")
+              }}
+            </p>
+          </div>
         </div>
-        <h4>Creator: {{this.petsUp.creator_name }}</h4>
-        <p><a :href="this.urlPart + this.petitionId" target="_blank">Origin Petition URL </a></p>
+        <h4>Creator: {{ this.petsUp.creator_name }}</h4>
+        <p>
+          <a :href="this.urlPart + this.petitionId" target="_blank"
+            >Origin Petition URL
+          </a>
+        </p>
       </div>
 
       <div class="card" style="text-align:center;">
-        <h4>Signature Trends in the Last {{timediff}}</h4>
+        <h4>Signature Trends in the Last {{ timediff }}</h4>
         <sparkline :indicatorStyles="spIndicatorStyles1">
-          <sparklineLine :data="testStat" :limit="30" :styles="spLineStyles1"/>
+          <sparklineLine :data="testStat" :limit="30" :styles="spLineStyles1" />
         </sparkline>
-        <div style="height:300px; border:1px solid silver;overflow:auto;display:flex;align-items: center;">
-          <div v-if="this.stats.length === 0"
-           style="display:flex;font-size:22px;justify-content: center;align-items: center;width:100%"
-           > Awaiting Trend Analysis</div>
-        <ul
-        v-else-if="this.stats.length > 0"
-        style="justify-content: center;align-items: center;width:100%">
-          <li :class="{'possible--bot': item.count > 1000}" v-for="(item, index) in this.stats" :key="index">
-            Another
-            <span class="active">{{item.count}}</span> added @
-            <span class="alert">{{ item.time | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</span>
-          </li>
-        </ul>
+        <div
+          style="height:300px; border:1px solid silver;overflow:auto;display:flex;align-items: center;"
+        >
+          <div
+            v-if="this.stats.length === 0"
+            style="display:flex;font-size:22px;justify-content: center;align-items: center;width:100%"
+          >
+            Awaiting Trend Analysis
+          </div>
+          <ul
+            v-else-if="this.stats.length > 0"
+            style="justify-content: center;align-items: center;width:100%"
+          >
+            <li
+              :class="{ 'possible--bot': item.count > 1000 }"
+              v-for="(item, index) in this.stats"
+              :key="index"
+            >
+              Another
+              <span class="active">{{ item.count }}</span> added @
+              <span class="alert">{{
+                item.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")
+              }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -80,58 +122,58 @@
         :columns="columnsMP"
         :rows="rows"
         :sort-options="{
-    enabled: true,
-    initialSortBy: {field: 'signature_count', type: 'desc'}
-  }"
+          enabled: true,
+          initialSortBy: { field: 'signature_count', type: 'desc' }
+        }"
         :search-options="{
-    enabled: true
-    }"
+          enabled: true
+        }"
         :pagination-options="{
-    enabled: true,
-    mode: 'records',
-    perPage: 5,
-    position: 'top',
-    perPageDropdown: [5, 10, 20],
-    dropdownAllowAll: false,
-    setCurrentPage: 1,
-    nextLabel: 'next',
-    prevLabel: 'prev',
-    rowsPerPageLabel: 'Rows per page',
-    ofLabel: 'of',
-    pageLabel: 'page', // for 'pages' mode
-    allLabel: 'All',
-  }"
+          enabled: true,
+          mode: 'records',
+          perPage: 5,
+          position: 'top',
+          perPageDropdown: [5, 10, 20],
+          dropdownAllowAll: false,
+          setCurrentPage: 1,
+          nextLabel: 'next',
+          prevLabel: 'prev',
+          rowsPerPageLabel: 'Rows per page',
+          ofLabel: 'of',
+          pageLabel: 'page', // for 'pages' mode
+          allLabel: 'All'
+        }"
       ></vue-good-table>
       <vue-good-table
         :columns="columnsSIG"
         :rows="countryCountRows"
         :sort-options="{
-    enabled: true,
-    initialSortBy: {field: 'signature_count', type: 'desc'}
-  }"
+          enabled: true,
+          initialSortBy: { field: 'signature_count', type: 'desc' }
+        }"
         :search-options="{
-    enabled: true
-    }"
+          enabled: true
+        }"
         :pagination-options="{
-    enabled: true,
-    mode: 'records',
-    perPage: 5,
-    position: 'top',
-    perPageDropdown: [5, 10, 20],
-    dropdownAllowAll: false,
-    setCurrentPage: 1,
-    nextLabel: 'next',
-    prevLabel: 'prev',
-    rowsPerPageLabel: 'Rows per page',
-    ofLabel: 'of',
-    pageLabel: 'page', // for 'pages' mode
-    allLabel: 'All',
-  }"
+          enabled: true,
+          mode: 'records',
+          perPage: 5,
+          position: 'top',
+          perPageDropdown: [5, 10, 20],
+          dropdownAllowAll: false,
+          setCurrentPage: 1,
+          nextLabel: 'next',
+          prevLabel: 'prev',
+          rowsPerPageLabel: 'Rows per page',
+          ofLabel: 'of',
+          pageLabel: 'page', // for 'pages' mode
+          allLabel: 'All'
+        }"
       ></vue-good-table>
     </div>
     <div class="wrap--full">
-         <div style="text-align:center;padding-top:32px;">
-         <vue-goodshare></vue-goodshare>
+      <div style="text-align:center;padding-top:32px;">
+        <vue-goodshare></vue-goodshare>
       </div>
     </div>
   </div>
@@ -143,12 +185,12 @@
   border: 0;
   list-style: none;
 }
-p{
-  text-align:let;
-  font-size:14px;
+p {
+  text-align: let;
+  font-size: 14px;
 }
 .home {
- padding: 0px 30px 20px;
+  padding: 0px 30px 20px;
 }
 
 .wrap {
@@ -156,38 +198,36 @@ p{
   grid-template-columns: 1fr 1fr;
   column-gap: 10px;
   row-gap: 1em;
- 
 
-  &--full{
-      display: grid;
-  grid-template-columns: 1fr;
+  &--full {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
-  &--3{
-          display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  &--3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-.wrap {
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: 10px;
-  row-gap: 1em;
- 
+  .wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 10px;
+    row-gap: 1em;
 
-  &--full{
+    &--full {
       display: grid;
-  grid-template-columns: 1fr;
-  }
+      grid-template-columns: 1fr;
+    }
 
-  &--3{
-          display: grid;
-  grid-template-columns: 1fr;
+    &--3 {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
   }
-}
 }
 .active {
   color: green !important;
@@ -196,11 +236,11 @@ p{
 
 .livecount {
   color: coral;
-  font-size:32px;
+  font-size: 32px;
   text-align: center;
-  .label{
-font-size:12px;
-color:black
+  .label {
+    font-size: 12px;
+    color: black;
   }
 }
 .alert {
@@ -220,8 +260,8 @@ color:black
   padding: 8px;
 }
 
-.possible--bot{
-  background:lighten(dodgerblue, 20%);
+.possible--bot {
+  background: lighten(dodgerblue, 20%);
 }
 .pinkBg {
   background-color: #02adb5 !important;
@@ -241,7 +281,7 @@ color:black
 .loader {
   position: relative;
   z-index: 9999;
-  top:-145px;
+  top: -145px;
 }
 .loader i {
   line-height: 56px;
@@ -295,7 +335,6 @@ color:black
 }
 </style>
 
-
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
@@ -317,9 +356,9 @@ Vue.component("tween-num", require("vue-tween-number"));
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
-  private isLoading: boolean = false
-  private urlPart: string = "https://petition.parliament.uk/petitions/"
-  private petitionId:any = ''
+  private isLoading: boolean = false;
+  private urlPart: string = "https://petition.parliament.uk/petitions/";
+  private petitionId: any = "";
   private timeCounter: string = Date();
   private stats: Array<any> = [{ count: 0, time: 0 }];
   private newPetsAdded: number = 0;
@@ -366,7 +405,7 @@ export default class Home extends Vue {
 
   @Watch("petsUp.signature_count")
   onChildChanged(val: number, oldVal: number) {
-    this.isLoading = false
+    this.isLoading = false;
     // console.log("Changed");
     this.isActive = true;
     //console.log(val - oldVal);
@@ -387,7 +426,7 @@ export default class Home extends Vue {
       this.testStat.shift();
     }
   }
-  created(){
+  created() {
     this.petitionId = this.$route.params.stream;
   }
 
@@ -398,9 +437,10 @@ export default class Home extends Vue {
     }, 5000);
   }
   private async getEarthQuakesPastHourAboveFourMag() {
-    this.isLoading = true
+    this.isLoading = true;
     this.timeCounter = Date();
-    const petionInfo = "https://petition.parliament.uk/petitions/"+ this.petitionId + ".json";
+    const petionInfo =
+      "https://petition.parliament.uk/petitions/" + this.petitionId + ".json";
     const response = await request.get(petionInfo);
     //console.log("DATA",response);
     this.petionData = response.body.data.attributes;

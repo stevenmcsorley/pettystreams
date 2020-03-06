@@ -16,7 +16,7 @@
             @input.prevent="filterPets"
             placeholder="Filter Petition by keyword"
             style="text-align:center"
-          >
+          />
         </article>
       </div>
 
@@ -24,25 +24,35 @@
         <article v-for="(item, index) in this.filterPets" :key="index">
           <div class="dev-card-base dev-u-padding-default dev-flex-column">
             <div class="dev-card-base__header dev-u-padding-default">
-              <h4>{{item.attributes.action}}</h4>
+              <h4>{{ item.attributes.action }}</h4>
             </div>
             <div
               class="dev-card-base__body dev-u-padding-default"
               style="height:100%"
-            ><text-highlight :queries="filterRes">{{item.attributes.background}}</text-highlight>
+            >
+              <text-highlight :queries="filterRes">{{
+                item.attributes.background
+              }}</text-highlight>
             </div>
             <div class="dev-card-base__footer dev-u-padding-default">
               <div class="dev-grid-wrapper__article--column--2 dev-flex">
                 <article>
                   <router-link
                     class="dev-flex"
-                    :to="{ name: 'petition', params: { stream: getStream(item.links.self) } }"
+                    :to="{
+                      name: 'petition',
+                      params: { stream: getStream(item.links.self) }
+                    }"
                   >
-                    <button class="dev-btn" style="align-items: center;">Petition Real Time Stats</button>
+                    <button class="dev-btn" style="align-items: center;">
+                      Petition Real Time Stats
+                    </button>
                   </router-link>
                 </article>
                 <article style="align-items: center;">
-                  <h3 class="counter">{{item.attributes.signature_count.toLocaleString()}}</h3>
+                  <h3 class="counter">
+                    {{ item.attributes.signature_count.toLocaleString() }}
+                  </h3>
                 </article>
               </div>
             </div>
@@ -200,7 +210,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import request from "superagent";
 import Sparkline from "vue-sparklines";
 import { setTimeout } from "timers";
-import TextHighlight from 'vue-text-highlight';
+import TextHighlight from "vue-text-highlight";
 const moment = require("moment");
 Vue.use(require("vue-moment"), {
   moment
@@ -216,7 +226,7 @@ Vue.component("tween-num", require("vue-tween-number"));
 })
 export default class Home extends Vue {
   // private newPetsCount:number = 0
-  private filterRes: string = ''
+  private filterRes: string = "";
   private isLoading: boolean = false;
   private timeCounter: string = Date();
   private stats: Array<any> = [{ count: 0, time: 0 }];
@@ -296,7 +306,7 @@ export default class Home extends Vue {
     this.isLoading = true;
     this.timeCounter = Date();
     const petionInfo =
-      "https://petition.parliament.uk/petitions.json?state=all";
+      "https://petition.parliament.uk/petitions.json?state=awaiting_response";
     const response = await request.get(petionInfo);
 
     this.petionData = response.body.data;
@@ -335,15 +345,16 @@ export default class Home extends Vue {
     return removeDot[0];
   }
 
-  private get filterPets(){
-    	let  posts = this.petionData
-      if (this.filterRes) {
-      	posts = posts.filter((p:any) => {
-        	return p.attributes.background.indexOf(this.filterRes) !== -1
-        })
-      }
+  private get filterPets() {
+    console.log("pets", this.petionData);
+    let posts = this.petionData;
+    if (this.filterRes) {
+      posts = posts.filter((p: any) => {
+        return p.attributes.background.indexOf(this.filterRes) !== -1;
+      });
+    }
 
-   return posts;
+    return posts;
   }
 }
 </script>
